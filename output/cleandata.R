@@ -30,20 +30,27 @@ t<- rep(NA, n)
 for(i in 1:n){
   t[i]<- typeof(bgtrain[[1,i]])
 }
-unique(t)
+# unique(t)
 char_index<- c(1:n)[t=="character"]
 inter_index<- c(1:n)[t=="integer"]
 dou_index<- c(1:n)[t=="double"]
 
+# seperate the variable by different type, charater are those that cannot
+# be convert to any type of data, doubles are continuous data. And intergers may
+# contain part of continuous data. Thus, we should also handle these variables.
 bgtrain_char<- bgtrain[, char_index]
 bgtrain_inter<- bgtrain[, inter_index]
 bgtrain_dou<- bgtrain[, dou_index]
 
 # table(bgtrain_inter[,17])
+# For interger-type variables, check the factor number it contains. And we consider those have
+# more than 20 factors as continuous number.
 fac_num<- as.numeric(apply(bgtrain_inter, 2, function(vec) 
   {return(length(table(vec)))} ))
-
 fac_index<- which(fac_num<=20)
 bgtrain_dou<- cbind(bgtrain_inter[,-fac_index], bgtrain_dou)
 bgtrain_inter<- bgtrain_inter[,fac_index]
 
+# Fianlly, we get two seperate dataset to deal with in next steps
+bgtrain_dou<- data.frame(bgtrain_dou)
+bgtrain_inter<- data.frame(bgtrain_inter)
