@@ -16,6 +16,7 @@ naid=which(is.na(train$gpa))
 var(train$gpa,na.rm=T)
 bg[is.na(bg)]=-999
 bgtrain=bg[setdiff(train$challengeID,train$challengeID[naid]),] 
+gpa1 <- train$gpa[-naid]
 unique(bg$m1intyr)
 
 
@@ -26,18 +27,35 @@ for (f in namelist){
   if(length(unique(bgtrain[[f]]))==1){
     bgtrain[[f]]=NULL
   }
-  if(is.character(bgtrain[[f]])){
-    bgtrain[[f]]=as.numeric(factor(bgtrain[[f]]))
+  if(!is.numeric(bgtrain[[f]])){
+  #  bgtrain[[f]]=factor(bgtrain[[f]])
+    bgtrain[[f]] = NULL
   }
-  cat(i)  
-  cat(' ')
-  i=i+1
+#  cat(i)  
+#  cat(' ')
+
 }
+
+
+
+################# LM ################# Please
+
+sel <- sample(1:nrow(bgtrain), nrow(bgtrain)*0.8)
+
+data_lm <- cbind(gpa1, bgtrain)
+lm_model <- lm(gpa1 ~ ., data = data_lm[sel, ])
+
+
+pred_lm_kc <- predict(lm_model, newdata = data_lm[-sel,-1])
+mean((pred_lm_kc - gpa1[-sel])^2)
+
+
+
 
 library(xgboost)
 id=bgtrain$challengeID
 bgtrain$challengeID=NULL
-gpa1 <- train$gpa[which(!is.na(train$gpa))]
+
 
 xgboost_kc <- function(bgtrain1 = bgtrain, obj = gpa1){
   dtrain=xgb.DMatrix(data.matrix(bgtrain1),label= obj)
@@ -56,7 +74,9 @@ xgboost_kc <- function(bgtrain1 = bgtrain, obj = gpa1){
   return(model)
 }
 
-sel <- sample(1:nrow(bgtrain), nrow(bgtrain)*0.8)
+
+################# xgboost #################
+
 model1 <-xgboost_kc(bgtrain1 = bgtrain[sel, ], obj = gpa1[sel])
 
 
@@ -64,3 +84,8 @@ dtest1=xgb.DMatrix(data.matrix(bgtrain[-sel, ]))
 
 pred_kc <- predict(model1, newdata = dtest1)
 mean((pred_kc - gpa1[-sel])^2)
+
+
+################# GLM #################
+
+
