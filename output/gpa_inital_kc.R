@@ -1,9 +1,15 @@
-setwd('C:/Users/YSHAN/Downloads/FFChallenge')
+#setwd('C:/Users/YSHAN/Downloads/FFChallenge')
+
+# Start loading
 library(readr)
 bg=read_csv('background.csv')
 train=read_csv('train.csv')
 #tar=read_csv('prediction.csv')
 #unique(tar$gpa)
+
+### End loading 
+
+### Start cleaning
 sum(is.na(train$gpa))
 sum(is.na(train$grit))
 sum(is.na(train$materialHardship))
@@ -23,6 +29,7 @@ unique(bg$m1intyr)
 # names of all the features
 namelist=names(bgtrain)
 i=0
+
 for (f in namelist){
   if(length(unique(bgtrain[[f]]))==1){
     bgtrain[[f]]=NULL
@@ -31,30 +38,54 @@ for (f in namelist){
   #  bgtrain[[f]]=factor(bgtrain[[f]])
     bgtrain[[f]] = NULL
   }
-#  cat(i)  
+#  cat(i)
 #  cat(' ')
 
 }
-
-
-
-################# LM ################# Please
+# End cleaning
+id=bgtrain$challengeID
+bgtrain$challengeID=NULL
 
 sel <- sample(1:nrow(bgtrain), nrow(bgtrain)*0.8)
 
-data_lm <- cbind(gpa1, bgtrain)
-lm_model <- lm(gpa1 ~ ., data = data_lm[sel, ])
+####### K-MEANS func
+library(plyr)
+new_features_kmeans <- function(data, K){
+  ## Return cluster.id
+  kmeans_results <- kmeans(t(data), centers = K, iter.max = 100)
+  return(kmeans_results$cluster)
+}
+
+generate_new_f_kmeans <- function(data, cluster.id){
+  new_data_lm <- data.frame(CLUS = cluster.id, 
+                            Records = t(data))
+  new_data_lm_done <- ddply((new_data_lm), .(CLUS), colMeans)
+  return(DATA = t(new_data_lm_done[,-1]))
+}
+
+cs.id <- new_features_kmeans(data = bgtrain[sel, ], K =120)
+new_features_train <- generate_new_f_kmeans(bgtrain[sel, ], cs.id)
+new_features_test <- generate_new_f_kmeans(bgtrain[-sel, ], cs.id)
 
 
-pred_lm_kc <- predict(lm_model, newdata = data_lm[-sel,-1])
+
+# new_features_kms <- new_features_kmeans(bgtrain, 120, sel)$DATA
+# testing_dataframe <- data.frame()
+# testing <- ddply((new_data_lm), .(CLUS), colMeans)
+
+################# LM ################# Please
+
+data_df_train <- data.frame(gpa = gpa1[sel], new_features_train)
+lm_model1 <- lm(gpa ~ ., data = data_df_train)
+
+pred_lm_kc <- predict(lm_model1, newdata = data.frame(new_features_test))
 mean((pred_lm_kc - gpa1[-sel])^2)
 
 
 
 
 library(xgboost)
-id=bgtrain$challengeID
-bgtrain$challengeID=NULL
+
 
 
 xgboost_kc <- function(bgtrain1 = bgtrain, obj = gpa1){
