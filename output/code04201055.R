@@ -49,7 +49,8 @@ new_features_train2 <- generate_new_f_kmeans(mm, cs.id2)
 data_df_train2 <- data.frame(gpa = gpa1, new_features_train2)
 lm_model2 <- lm(as.character(gpa) ~ ., data = data_df_train2)
 
-new_features_test2 <- generate_new_f_kmeans(bgpremm, cs.id2)
+
+new_features_test2 <- generate_new_f_kmeans(mm, cs.id2)
 pred_lm_kc <- predict(lm_model2, newdata = data.frame(new_features_test2))
 
 pred_lm_kc[pred_lm_kc>4] <- 4
