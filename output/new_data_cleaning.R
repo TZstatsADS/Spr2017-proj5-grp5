@@ -42,6 +42,20 @@ bgtrain_char<- bgtrain[, char_index]
 bgtrain_inter<- bgtrain[, inter_index]
 bgtrain_dou<- bgtrain[, dou_index]
 
+# table(bgtrain_inter[,17])
+# For interger-type variables, check the factor number it contains. And we consider those have
+# more than 20 factors as continuous number.
+fac_num<- as.numeric(apply(bgtrain_inter, 2, function(vec) 
+{return(length(table(vec)))} ))
+fac_index<- which(fac_num<=20)
+bgtrain_dou<- cbind(bgtrain_inter[,-fac_index], bgtrain_dou)
+bgtrain_inter<- bgtrain_inter[,fac_index]
+
+# Fianlly, we get two seperate dataset to deal with in next steps
+bgtrain_dou<- data.frame(bgtrain_dou)
+bgtrain_inter<- data.frame(bgtrain_inter)
+
+
 
 ### fill NA and create new data
 fill_each_column <- function(each_col){
@@ -71,3 +85,4 @@ cate_dou_na <- apply(gp5data_dou, 2, function(col){fill_each_column(col)[[2]]})
 ## remove NON-NA columns
 non_na_dou <- colSums(cate_dou_na) == 0
 cate_dou_na <- cate_dou_na[,!non_na_dou]
+
