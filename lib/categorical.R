@@ -1,5 +1,8 @@
 #setwd('C:/Users/YSHAN/Downloads/FFChallenge')
 
+install.packages("klaR")
+library(klaR)
+
 source("cleandata.R")
 bgtrain_inter[is.na(bgtrain_inter)] = -9
 
