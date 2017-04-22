@@ -95,3 +95,8 @@ gp5pred_dou <- matrix(unlist(gp5pred_dou), nrow(gp5pred_dou))
 ## 1 for new column, 2 for new categorical features
 gp5pred_dou_RMNA <- apply(gp5pred_dou, 2, function(col){fill_each_column(col)[[1]]})
 cate_pred_dou_na <- apply(gp5pred_dou, 2, function(col){fill_each_column(col)[[2]]})
+
+## remove NON-NA columns
+non_na_dou2 <- colSums(cate_pred_dou_na) == 0
+cate_pred_dou_na <- cate_pred_dou_na[,!non_na_dou2]
+
