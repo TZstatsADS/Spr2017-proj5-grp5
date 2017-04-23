@@ -3,7 +3,7 @@
 Term: Spring 2017
 
 + Team 5
-+ Projec title: The Fragile Family Challenge
++ Projec title: The Fragile Families Challenge
 + Team members
 	+ team member 1 (Kai Chen)
 	+ team member 2 (Shan Yu)
