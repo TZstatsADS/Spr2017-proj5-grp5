@@ -9,7 +9,7 @@ Term: Spring 2017
 	+ team member 2 ([`Shan Yu`](https://github.com/yshany))
 	+ team member 3 (Song Wang)
 	+ team member 4 ([`Zhilin Fan`](https://github.com/zf2169))
-	+ team member 5 (Zijun Nie)
+	+ team member 5 ([`Zijun Nie`](https://github.com/zn2146))
 	
 + Project summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	
