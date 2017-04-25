@@ -7,7 +7,7 @@ Term: Spring 2017
 + Team members
 	+ team member 1 ([`Kai Chen`](https://github.com/KaiChenColumbia))
 	+ team member 2 ([`Shan Yu`](https://github.com/yshany))
-	+ team member 3 (Song Wang)
+	+ team member 3 (['Song Wang'](https://github.com/SongWang2017))
 	+ team member 4 ([`Zhilin Fan`](https://github.com/zf2169))
 	+ team member 5 ([`Zijun Nie`](https://github.com/zn2146))
 	
