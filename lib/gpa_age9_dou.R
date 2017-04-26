@@ -112,7 +112,7 @@ params=list(
         max_depth=1
 )
 
-xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
+#xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
 model=xgb.train(data=dtrain,params=params,nrounds=100)
 # imp=xgb.importance(model=model)
 # feid=imp$Feature[1:500]

@@ -221,7 +221,7 @@ params=list(
         max_depth=1
 )
 
-xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
+#xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
 model8=xgb.train(data=dtrain,params=params,nrounds=500)
 imp=xgb.importance(model=model8)
 
