@@ -114,17 +114,17 @@ params=list(
 
 xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
 model=xgb.train(data=dtrain,params=params,nrounds=100)
-imp=xgb.importance(model=model)
-feid=imp$Feature[1:500]
-dtrain=xgb.DMatrix(cbind(data.matrix(bgtrain_dou),cate_dou_na)[,as.numeric(feid)],label=train$gpa[which(!is.na(train$gpa))])
-params=list(
-        objective='reg:linear',
-        subsample=0.9,
-        colsample_bytree=0.15,
-        eta=0.05,
-        max_depth=6
-)
-xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
+# imp=xgb.importance(model=model)
+# feid=imp$Feature[1:500]
+# dtrain=xgb.DMatrix(cbind(data.matrix(bgtrain_dou),cate_dou_na)[,as.numeric(feid)],label=train$gpa[which(!is.na(train$gpa))])
+# params=list(
+#         objective='reg:linear',
+#         subsample=0.9,
+#         colsample_bytree=0.15,
+#         eta=0.05,
+#         max_depth=6
+# )
+# xgb.cv(nfold=10,data=dtrain,params = params,nround=3000)
 sub=predict(model,dtest)
 tar=read_csv('prediction.csv')
 tar$gpa=sub
