@@ -213,7 +213,7 @@ dim(aaa1)
 library(plyr)
 new_features_kmeans <- function(data, K){
         ## Return cluster.id
-        kmeans_results <- kmeans(t(data), centers = K, iter.max = 100)
+        kmeans_results <- kmeans(t(data), centers = K, iter.max = 500)
         return(kmeans_results$cluster)
 }
 
@@ -224,7 +224,7 @@ generate_new_f_kmeans <- function(data, cluster.id){
         return(DATA = t(new_data_lm_done[,-1]))
 }
 
-cs.id <- new_features_kmeans(data = aaa1, K =150)
+cs.id <- new_features_kmeans(data = aaa1, K =300)
 new_features_train <- generate_new_f_kmeans(aaa1, cs.id)
 new_features_test <- generate_new_f_kmeans(aaa_pre1, cs.id)
 
