@@ -9,7 +9,23 @@ memory.limit(10000)
 ```
 
 # Introduction
+![](../figs/ffchallenge.png)
+
+### $\bullet$ BACKGROUND
+
+#### The Fragile Families Challenge is a mass collaboration that will combine predictive modeling, causal inference, and in-depth interviews to yield insights that can improve the lives of disadvantaged children in the United States.  By working together we can discover things that none of us can discover individually.
+
+#### The Fragile Families Challenge is based on the Fragile Families and Child Wellbeing Study, which has followed thousands of American families for more than 15 years.  During this time, the Fragile Families study collected information about the children, their parents, their schools, and their larger environments.
+
 ![](../figs/picture1.png)
+
+### $\bullet$ HELP THE WORLD:
+
+#### Designed to produce scientific knowledge that can be used to improve the lives of disadvantaged children in the United States. Even more than that, we hope the Fragile Families Challenge can serve as a model for how social scientists and data scientists can collaborate on problems of societal importance.
+
+### $\bullet$ WIN PRIZES:
+
+#### We will award prizes to participants who make important contributions to the project. All prize winners will be given an all-expenses paid trip to Princeton University for the scientific workshop at the end of the project.
 
 ## Research Data
 ![](../figs/ff_design_public2.png)
@@ -21,7 +37,7 @@ memory.limit(10000)
 ![](../figs/outcomes.png)
 
 # Step 0: Clean Data
-
+![missing data](../figs/missingdata.png)
 ![Clean Data](../figs/cleandata.png)
 ```{r, warning=FALSE, message=FALSE, results='hide'}
 library(readr)
