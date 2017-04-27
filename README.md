@@ -11,6 +11,8 @@ Term: Spring 2017
 	+ team member 4 ([`Zhilin Fan`](https://github.com/zf2169))
 	+ team member 5 ([`Zijun Nie`](https://github.com/zn2146))
 	
+	Please be advised: due to protection of privacy of fragile families, we are not allowed to upload any relevant dataset by the organizer at Princeton University. 
+	
 + Project summary:In this project, we use data based on the Fragile Families and Child Wellbeing Study, which has followed thousands of American families for more than 15 years. During this time, the Fragile Families study collected information about the children, their parents, their schools, and their larger environments.
 
 Given all the background data from birth to year 9 and some training data from year 15,we infer six key outcomes (gpa, grit, material_hardship, eviction, layoff, jobtraining) in the year 15 test data. In the data cleaning process, we deal with categorical variable and continuous variables seperately, for continuous variable, we replace the NA with the median value of that variable, and create a new categrocial variable to indicate the NAs (where the NAs may contain information to some degree) ,attach the new indicating categorical variable to the oringinal categorical features.For categorical features, we replace the NAs with a number that doesn't exist in original dataset and transform every categorical to a dummy matrix, for every dummy matrix whose elements are either 0 or 1, we choose the 2nd to last column to avoid collinearity. 
