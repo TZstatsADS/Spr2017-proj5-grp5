@@ -96,7 +96,7 @@ cate_dou_na <- cate_dou_na[,!non_na_dou]
 # 
 new_features_kmeans <- function(data, K){
   ## Return cluster.id
-  kmeans_results <- kmeans(data, centers = K, iter.max = 100)
+  kmeans_results <- kmeans(data, centers = K, iter.max = 500)
   return(kmeans_results$cluster)
 }
 # 
@@ -136,7 +136,8 @@ for (iter in 1:length(aaa)){
   aaa1 <- cbind(aaa1, aaa[[iter]][,2:ncol(aaa[[iter]])])
 }
 
-cs.id <- new_features_kmeans(t(aaa1), K = 120)
+cs.id <- new_features_kmeans(t(aaa1), K = 250)
+table(cs.id)
 new_features_train <- generate_new_f_kmeans(t(aaa1), cs.id)
 
 
@@ -188,8 +189,8 @@ params=list(
 )
 
 
-xgbbb <- xgb.cv(nfold=10,data=dtrain,params = params,nround=300,print_every_n = 50)
-model8=xgb.train(data=dtrain,params=params,nrounds=140)
+xgbbb <- xgb.cv(nfold=10,data=dtrain,params = params,nround=300,print_every_n = 1)
+model8=xgb.train(data=dtrain,params=params,nrounds=200)
 #imp=xgb.importance(model=model8)
 
 cate_result <- predict(model8,dtest)
@@ -197,4 +198,8 @@ model2 <- read_csv('prediction.csv')
 model2$gpa <- cate_result
 write_csv(model2,'model2.csv')
 
-
+nie <- read_csv('submission0.619.csv')
+yyy <- nie
+yyy$gpa <- 0.5 * nie$gpa + 0.5 * cate_result
+hist(yyy$gpa)
+write_csv(yyy,'modelafter2.csv')
